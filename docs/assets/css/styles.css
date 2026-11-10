@@ -133,6 +133,13 @@ a { color: inherit; text-decoration: none; }
   --pos: center, 100% 40%;
 }
 
+/* Side by side, both worlds start at the same height so 01 and 02 line up,
+   however many items each menu holds. */
+@media (min-width: 901px) {
+  .world { align-items: flex-start; }
+  .worlds .world__content { padding-top: clamp(64px, 20vh, 200px); }
+}
+
 /* The whole picture is a link to "view all"; it sits under the content. */
 .world__cover {
   position: absolute;
