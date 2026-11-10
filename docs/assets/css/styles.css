@@ -1,0 +1,330 @@
+/* JNL Studio | Two Worlds
+   Plain CSS, no external fonts or libraries. Image paths are relative to this file. */
+
+:root {
+  --cream: #f5efe8;
+  --ink: #1b1511;
+  --white: #fbf8f4;
+  --night: #2a2325;
+
+  --display: "Baskerville", "Didot", "Libre Baskerville", "Times New Roman", serif;
+  --text: "Optima", "Candara", "Avenir Next", "Segoe UI", sans-serif;
+
+  --gutter: clamp(20px, 5vw, 80px);
+  --header-h: clamp(72px, 8vw, 110px);
+  --footer-h: clamp(72px, 7vw, 92px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: 400 17px/1.5 var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 10;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--cream);
+}
+.skip:focus { top: 16px; }
+
+/* ---------- Header ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: var(--header-h);
+  padding: 0 var(--gutter);
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 30px);
+  margin: 0;
+  font: 400 clamp(26px, 2.6vw, 40px)/1 var(--display);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+}
+.wordmark span:last-child { font-size: .72em; letter-spacing: .38em; }
+.wordmark__bar {
+  width: 1.5px;
+  height: 1.15em;
+  background: currentColor;
+}
+
+.site-title {
+  margin: 0;
+  font: 400 clamp(12px, 1vw, 14px)/1 var(--display);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- The two worlds ---------- */
+
+.worlds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: max(620px, calc(100vh - var(--header-h) - var(--footer-h)));
+  min-height: max(620px, calc(100svh - var(--header-h) - var(--footer-h)));
+}
+
+.world {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--white);
+}
+
+/* Picture + local scrim live on a pseudo-element, so the picture can move without moving the text.
+   Each world sets --bg (scrim, then image) and --pos. */
+.world::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--bg);
+  background-position: var(--pos);
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: scale(1.02);
+  transition: transform 1400ms var(--ease);
+}
+
+.world--jewellery {
+  background-color: #b89878;
+  /* Warm scrim where the text sits, fading out before the ribbon. */
+  --bg:
+    linear-gradient(90deg, rgba(64, 42, 24, .58) 0%, rgba(64, 42, 24, .36) 45%, rgba(64, 42, 24, .06) 80%),
+    url("../images/jewellery-champagne-gold-ribbon.png");
+  --pos: center, 70% 35%;
+}
+
+.world--creations {
+  background-color: var(--night);
+  --bg:
+    linear-gradient(90deg, rgba(30, 24, 26, .5) 0%, rgba(30, 24, 26, .15) 50%, rgba(30, 24, 26, 0) 70%),
+    url("../images/creations-pink-3d-layered-ribbon.png");
+  --pos: center, 100% 40%;
+}
+
+/* The whole picture is a link to "view all"; it sits under the content. */
+.world__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.world__content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 420px);
+  margin-left: clamp(24px, 5vw, 80px);
+  padding: 48px 0;
+  pointer-events: none; /* clicks fall through to the cover link… */
+}
+.world__content a,
+.world__content .world__link--soon { pointer-events: auto; } /* …except on the real controls */
+
+.world__index {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 22px;
+  font: 400 clamp(18px, 1.5vw, 22px)/1 var(--display);
+  letter-spacing: .14em;
+}
+.world__index::after {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+}
+
+.world__title {
+  margin: 0 0 clamp(26px, 3vw, 40px);
+  font: 400 clamp(30px, 2.6vw, 40px)/1.05 var(--display);
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  margin-right: -.36em; /* trailing tracking */
+  white-space: nowrap;
+}
+
+/* Thin-line menu: each sub-category is its own full-width target. */
+.world__menu {
+  margin: 0 0 clamp(30px, 3.2vw, 44px);
+  padding: 0;
+  list-style: none;
+}
+
+.world__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+  margin: 0;
+  padding: 0 12px;
+  margin-inline: -12px;
+  border-bottom: 1px solid rgba(251, 248, 244, .7);
+  font: 400 clamp(19px, 1.6vw, 24px)/1.2 var(--text);
+  letter-spacing: .03em;
+  transition: background-color 250ms var(--ease);
+}
+.world__menu li:last-child .world__link { border-bottom: 0; }
+
+a.world__link:hover,
+a.world__link:focus-visible { background-color: rgba(251, 248, 244, .14); }
+a.world__link:focus-visible { outline-offset: 0; }
+
+.world__link--soon { cursor: default; }
+.world__link--soon > span:first-child { opacity: .78; }
+.soon {
+  font-size: 13px;
+  letter-spacing: .08em;
+  opacity: .85;
+  white-space: nowrap;
+}
+
+.arrow {
+  flex: none;
+  width: 24px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  transition: transform 300ms var(--ease);
+}
+a:hover .arrow,
+a:focus-visible .arrow { transform: translateX(5px); }
+
+.world__all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-width: min(100%, 300px);
+  min-height: 54px;
+  padding: 0 24px 0 32px;
+  border: 1.5px solid var(--white);
+  font: 400 clamp(17px, 1.35vw, 20px)/1 var(--text);
+  letter-spacing: .04em;
+  transition: background-color 250ms var(--ease), color 250ms var(--ease);
+}
+.world__all:hover,
+.world__all:focus-visible {
+  background-color: var(--white);
+  color: var(--ink);
+}
+.world__all:active { transform: scale(.98); }
+
+/* The picture leans in when the visitor points at that world. */
+@media (hover: hover) {
+  .world:hover::before { transform: scale(1.06); }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 64px);
+  min-height: var(--footer-h);
+  padding: 0 var(--gutter);
+}
+.site-footer__rule {
+  flex: 0 1 90px;
+  height: 1px;
+  background: var(--ink);
+}
+.tagline {
+  margin: 0;
+  font: 400 clamp(14px, 1.5vw, 22px)/1.3 var(--display);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ---------- Tablet: keep two columns, tighten the type ---------- */
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .world__content { margin-left: clamp(24px, 4.5vw, 48px); margin-right: 24px; width: auto; max-width: 340px; }
+  .world__title { font-size: clamp(22px, 3.1vw, 30px); letter-spacing: .28em; margin-right: -.28em; }
+  .world--jewellery { --pos: center, 72% 35%; }
+}
+
+/* ---------- Tablet portrait and phone: Jewellery above Creations, natural scrolling ---------- */
+
+@media (max-width: 900px) {
+  .worlds { grid-template-columns: 1fr; min-height: 0; }
+  .world { min-height: 600px; }
+  .world__content { margin-left: var(--gutter); max-width: 380px; }
+  .world__title { font-size: 34px; letter-spacing: .32em; margin-right: 0; }
+  .world--jewellery { --pos: center, 50% 42%; }
+  .world--creations { --pos: center, 50% 12%; }
+}
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 719px) {
+  .site-header { min-height: 76px; }
+  .wordmark { font-size: 24px; gap: 14px; letter-spacing: .26em; }
+  .site-title { font-size: 11px; letter-spacing: .26em; }
+
+  .world { min-height: 560px; align-items: flex-start; }
+  .world__content { margin: 0 24px; max-width: 330px; padding: 56px 0 64px; }
+  .world__title { font-size: 28px; letter-spacing: .28em; margin-right: 0; }
+
+  .world--jewellery {
+    --bg:
+      linear-gradient(90deg, rgba(64, 42, 24, .62) 0%, rgba(64, 42, 24, .4) 55%, rgba(64, 42, 24, .12) 100%),
+      url("../images/jewellery-champagne-gold-ribbon.png");
+    --pos: center, 60% 30%;
+  }
+  .world--creations {
+    --bg:
+      linear-gradient(90deg, rgba(30, 24, 26, .55) 0%, rgba(30, 24, 26, .3) 60%, rgba(30, 24, 26, .05) 100%),
+      url("../images/creations-pink-3d-layered-ribbon.png");
+    --pos: center, 85% 70%;
+  }
+
+  .site-footer { gap: 14px; padding-block: 8px; }
+  .site-footer__rule { flex-basis: 32px; }
+  .tagline { font-size: 12px; letter-spacing: .2em; white-space: nowrap; }
+}
+
+@media (max-width: 360px) {
+  .wordmark { font-size: 20px; letter-spacing: .2em; }
+  .site-title { letter-spacing: .18em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  .world::before { transform: none; }
+}

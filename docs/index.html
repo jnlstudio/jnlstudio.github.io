@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JNL Studio | Two Worlds</title>
+  <meta name="description" content="JNL Studio: one studio, two worlds. Jewellery, personalised and curated, and 3D printed Creations.">
+  <meta name="theme-color" content="#f5efe8">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#worlds">Skip to the two worlds</a>
+
+  <header class="site-header">
+    <p class="wordmark" aria-label="JNL Studio">
+      <span aria-hidden="true">JNL</span><span class="wordmark__bar" aria-hidden="true"></span><span aria-hidden="true">Studio</span>
+    </p>
+    <h1 class="site-title">Two Worlds</h1>
+  </header>
+
+  <main id="worlds" class="worlds">
+
+    <!-- 01 Jewellery -->
+    <section class="world world--jewellery" aria-labelledby="jewellery-title">
+      <!-- Whole-picture link, a sibling of the menu (never nested). Hidden from keyboard and
+           screen readers because "View All Jewellery" goes to the same place. -->
+      <a class="world__cover" href="https://jnlstudio.github.io/Jewellery/" tabindex="-1" aria-hidden="true"></a>
+
+      <div class="world__content">
+        <p class="world__index" aria-hidden="true">01</p>
+        <h2 id="jewellery-title" class="world__title">Jewellery</h2>
+
+        <ul class="world__menu">
+          <li>
+            <a class="world__link" href="https://jnlstudio.github.io/JNLPersonalised/">
+              <span>Personalised</span>
+              <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="world__link" href="https://jnlstudio.github.io/JNLCurated/">
+              <span>Curated</span>
+              <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
+            </a>
+          </li>
+        </ul>
+
+        <a class="world__all" href="https://jnlstudio.github.io/Jewellery/">
+          <span>View All Jewellery</span>
+          <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- 02 Creations -->
+    <section class="world world--creations" aria-labelledby="creations-title">
+      <a class="world__cover" href="https://jnlstudio.github.io/keychains/" tabindex="-1" aria-hidden="true"></a>
+
+      <div class="world__content">
+        <p class="world__index" aria-hidden="true">02</p>
+        <h2 id="creations-title" class="world__title">Creations</h2>
+
+        <ul class="world__menu">
+          <li>
+            <a class="world__link" href="https://jnlstudio.github.io/KeychainsGhostface/">
+              <span>Special Edition</span>
+              <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
+            </a>
+          </li>
+          <li>
+            <!-- No live address yet: shown as information, not as a link. -->
+            <p class="world__link world__link--soon">
+              <span>Custom Designs</span>
+              <span class="soon">Coming soon</span>
+            </p>
+          </li>
+        </ul>
+
+        <a class="world__all" href="https://jnlstudio.github.io/keychains/">
+          <span>View All Creations</span>
+          <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <span class="site-footer__rule" aria-hidden="true"></span>
+    <p class="tagline">One Studio. Two Worlds.</p>
+    <span class="site-footer__rule" aria-hidden="true"></span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Source artwork stays local (the site uses the copies in docs/assets/images)
+originals/
+
+# Working files
+.taste-skill/
