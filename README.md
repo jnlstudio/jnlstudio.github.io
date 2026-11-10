@@ -11,12 +11,19 @@ docs/                 ← GitHub Pages source (branch main, folder /docs)
 ├── index.html
 └── assets/
     ├── css/styles.css
+    ├── js/worlds.js     ← phone split view only
     └── images/
         ├── jewellery-champagne-gold-ribbon.png
         └── creations-pink-3d-layered-ribbon.png
 ```
 
-Plain HTML and CSS: no build step, no dependencies.
+Plain HTML, CSS and a small script: no build step, no dependencies.
+
+## Layout
+
+- 901px and up: Jewellery and Creations side by side, menus always shown.
+- 768–900px: the two worlds stacked.
+- 767px and below: the two worlds side by side at 50/50. Tap one to open it to about 92%; the other folds into a strip that switches to it. Close (×) or Escape returns to 50/50. Without script, phones get the stacked layout.
 
 ## Links
 

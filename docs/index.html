@@ -7,6 +7,9 @@
   <meta name="description" content="JNL Studio: one studio, two worlds. Jewellery, personalised and curated, and 3D printed Creations.">
   <meta name="theme-color" content="#f5efe8">
   <link rel="stylesheet" href="./assets/css/styles.css">
+  <!-- Phones get the tap-to-expand split view only when script runs; without it they keep the stacked layout. -->
+  <script>document.documentElement.classList.add("has-split")</script>
+  <script src="./assets/js/worlds.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#worlds">Skip to the two worlds</a>
@@ -18,17 +21,30 @@
     <h1 class="site-title">Two Worlds</h1>
   </header>
 
-  <main id="worlds" class="worlds">
+  <main id="worlds" class="worlds" data-active="none">
+
+    <!-- Phone split view only (hidden from 768px up). -->
+    <div class="split-intro" aria-hidden="true"><p>One Studio.<br>Two Worlds.</p></div>
+    <p class="split-hint" aria-hidden="true">Tap a world to explore</p>
 
     <!-- 01 Jewellery -->
     <section class="world world--jewellery" aria-labelledby="jewellery-title">
+      <!-- Phone: the whole panel opens this world; when the other world is open it becomes the narrow switch strip. -->
+      <button class="world__toggle" type="button" data-world="jewellery" aria-expanded="false" aria-controls="jewellery-panel" aria-label="Open Jewellery">
+        <span class="world__face" aria-hidden="true">
+          <span class="world__face-index">01</span>
+          <span class="world__face-title">Jewellery</span>
+          <span class="world__face-arrow"><svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg></span>
+        </span>
+        <span class="world__strip" aria-hidden="true">Jewellery</span>
+      </button>
       <!-- Whole-picture link, a sibling of the menu (never nested). Hidden from keyboard and
            screen readers because "View All Jewellery" goes to the same place. -->
       <a class="world__cover" href="https://jnlstudio.github.io/Jewellery/" tabindex="-1" aria-hidden="true"></a>
 
-      <div class="world__content">
+      <div class="world__content" id="jewellery-panel">
         <p class="world__index" aria-hidden="true">01</p>
-        <h2 id="jewellery-title" class="world__title">Jewellery</h2>
+        <h2 id="jewellery-title" class="world__title" tabindex="-1">Jewellery</h2>
 
         <ul class="world__menu">
           <li>
@@ -49,16 +65,26 @@
           <span>View All Jewellery</span>
           <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
         </a>
+        <button class="world__close" type="button" aria-label="Close Jewellery"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3l14 14M17 3 3 17"/></svg></button>
       </div>
     </section>
 
     <!-- 02 Creations -->
     <section class="world world--creations" aria-labelledby="creations-title">
+      <!-- Phone: the whole panel opens this world; when the other world is open it becomes the narrow switch strip. -->
+      <button class="world__toggle" type="button" data-world="creations" aria-expanded="false" aria-controls="creations-panel" aria-label="Open Creations">
+        <span class="world__face" aria-hidden="true">
+          <span class="world__face-index">02</span>
+          <span class="world__face-title">Creations</span>
+          <span class="world__face-arrow"><svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg></span>
+        </span>
+        <span class="world__strip" aria-hidden="true">Creations</span>
+      </button>
       <a class="world__cover" href="https://jnlstudio.github.io/keychains/" tabindex="-1" aria-hidden="true"></a>
 
-      <div class="world__content">
+      <div class="world__content" id="creations-panel">
         <p class="world__index" aria-hidden="true">02</p>
-        <h2 id="creations-title" class="world__title">Creations</h2>
+        <h2 id="creations-title" class="world__title" tabindex="-1">Creations</h2>
 
         <ul class="world__menu">
           <li>
@@ -86,6 +112,7 @@
           <span>View All Creations</span>
           <svg class="arrow" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20.5M15.5 1 20.5 6l-5 5"/></svg>
         </a>
+        <button class="world__close" type="button" aria-label="Close Creations"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3l14 14M17 3 3 17"/></svg></button>
       </div>
     </section>
 

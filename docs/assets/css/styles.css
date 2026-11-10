@@ -331,6 +331,308 @@ a:focus-visible .arrow { transform: translateX(5px); }
   .site-title { letter-spacing: .18em; }
 }
 
+/* =====================================================================
+   PHONE SPLIT VIEW (767px and below, only when script runs: .has-split)
+   Two worlds side by side; tap one to open it to ~92%, the other folds
+   to a narrow switch strip. Wider screens never see any of this.
+   ===================================================================== */
+
+.world__toggle,
+.world__close,
+.split-intro,
+.split-hint { display: none; }
+
+@media (max-width: 767px) {
+  .has-split {
+    --hh: calc(64px + env(safe-area-inset-top));
+    --strip: max(52px, 8vw);
+    --split: 500ms;
+  }
+
+  /* Header: slimmer, clear of the notch */
+  .has-split .site-header {
+    min-height: var(--hh);
+    padding-top: env(safe-area-inset-top);
+    padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right));
+  }
+  .has-split .wordmark { font-size: 22px; gap: 12px; letter-spacing: .24em; }
+
+  /* The stage fills the screen under the header: both worlds visible, no scrolling */
+  .has-split .worlds {
+    position: relative;
+    display: flex;
+    height: calc(100vh - var(--hh));
+    height: calc(100dvh - var(--hh));
+    min-height: 480px;
+    overflow: hidden;
+  }
+
+  .has-split .world {
+    flex: 0 0 50%;
+    min-width: 0;
+    min-height: 0;
+    align-items: stretch;
+    transition: flex-basis var(--split) var(--ease);
+  }
+  .has-split .world::before {
+    transition: transform 1400ms var(--ease), background-position var(--split) var(--ease);
+  }
+  .has-split .world__cover { display: none; }
+
+  .has-split [data-active="jewellery"] .world--jewellery,
+  .has-split [data-active="creations"] .world--creations { flex-basis: calc(100% - var(--strip)); }
+  .has-split [data-active="jewellery"] .world--creations,
+  .has-split [data-active="creations"] .world--jewellery { flex-basis: var(--strip); }
+
+  /* Picture crops for each state */
+  .has-split .world--jewellery {
+    --bg:
+      linear-gradient(90deg, rgba(64, 42, 24, .5) 0%, rgba(64, 42, 24, .28) 60%, rgba(64, 42, 24, .12) 100%),
+      url("../images/jewellery-champagne-gold-ribbon.png");
+    --pos: center, 58% 40%;
+  }
+  .has-split .world--creations {
+    --bg:
+      linear-gradient(90deg, rgba(30, 24, 26, .45) 0%, rgba(30, 24, 26, .15) 60%, rgba(30, 24, 26, 0) 100%),
+      url("../images/creations-pink-3d-layered-ribbon.png");
+    --pos: center, 92% 42%;
+  }
+  .has-split [data-active="jewellery"] .world--jewellery { --pos: center, 70% 40%; }
+  .has-split [data-active="creations"] .world--creations {
+    --bg:
+      linear-gradient(90deg, rgba(30, 24, 26, .6) 0%, rgba(30, 24, 26, .35) 70%, rgba(30, 24, 26, .15) 100%),
+      url("../images/creations-pink-3d-layered-ribbon.png");
+    --pos: center, 8% 45%;
+  }
+
+  /* ---- The tap target: whole panel ---- */
+  .has-split .world__toggle {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .has-split .world__toggle:focus-visible { outline: 2px solid var(--white); outline-offset: -8px; }
+
+  /* Closed face: number, name, arrow */
+  .world__face {
+    position: absolute;
+    left: 16px;
+    right: 10px;
+    top: 56%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    transition: opacity 220ms var(--ease);
+  }
+  .world__face-index {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font: 400 14px/1 var(--display);
+    letter-spacing: .14em;
+  }
+  .world__face-index::after { content: ""; width: 22px; height: 1px; background: currentColor; }
+  .world__face-title {
+    font: 400 clamp(15px, 4.7vw, 20px)/1.1 var(--display);
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .world__face-arrow {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 34px;
+    border: 1px solid rgba(251, 248, 244, .85);
+    transition: background-color 150ms var(--ease), color 150ms var(--ease);
+  }
+  .world__face-arrow .arrow { width: 20px; height: 12px; }
+  .world__toggle:active .world__face-arrow { background: var(--white); color: var(--ink); }
+
+  /* Folded strip label (shown on the world that is not open) */
+  .world__strip {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    font: 400 12px/1 var(--display);
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 180ms var(--ease);
+  }
+  .world--jewellery .world__strip { transform: rotate(180deg); }
+
+  .has-split [data-active="jewellery"] .world--jewellery .world__toggle,
+  .has-split [data-active="creations"] .world--creations .world__toggle { visibility: hidden; }
+  .has-split [data-active="jewellery"] .world__face,
+  .has-split [data-active="creations"] .world__face { opacity: 0; }
+  .has-split [data-active="jewellery"] .world--creations .world__strip,
+  .has-split [data-active="creations"] .world--jewellery .world__strip { opacity: 1; transition-delay: 280ms; }
+
+  /* ---- Open menu ---- */
+  .has-split .world__content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    width: calc(100vw - var(--strip)); /* the open width, so text never reflows while the panel grows */
+    max-width: none;
+    margin: 0;
+    padding: clamp(72px, 12dvh, 120px) 24px calc(32px + env(safe-area-inset-bottom));
+    overflow-y: auto; /* short screens or large text: the menu scrolls, nothing is cut */
+    overscroll-behavior: contain;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 140ms var(--ease), transform 140ms var(--ease), visibility 0s linear 140ms;
+  }
+  .has-split [data-active="jewellery"] .world--jewellery .world__content,
+  .has-split [data-active="creations"] .world--creations .world__content {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 320ms var(--ease) 300ms, transform 320ms var(--ease) 300ms, visibility 0s linear 0s;
+  }
+  .has-split .world__menu li {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 140ms var(--ease), transform 140ms var(--ease);
+  }
+  .has-split [data-active="jewellery"] .world--jewellery .world__menu li,
+  .has-split [data-active="creations"] .world--creations .world__menu li {
+    opacity: 1;
+    transform: none;
+    transition-duration: 280ms;
+  }
+  .has-split [data-active] .world__menu li:nth-child(1) { transition-delay: 360ms; }
+  .has-split [data-active] .world__menu li:nth-child(2) { transition-delay: 410ms; }
+  .has-split [data-active] .world__menu li:nth-child(3) { transition-delay: 460ms; }
+  .has-split [data-active="none"] .world__menu li { transition-delay: 0s; }
+
+  .has-split .world__index { margin-bottom: 16px; font-size: 16px; }
+  .has-split .world__title {
+    margin: 0 0 24px;
+    font-size: clamp(24px, 7.2vw, 30px);
+    letter-spacing: .28em;
+    white-space: nowrap;
+  }
+  .has-split .world__title:focus { outline: none; }
+  .has-split .world__menu { margin-bottom: 28px; }
+  .has-split .world__link { min-height: 56px; font-size: 19px; }
+  .has-split .world__all { min-width: min(100%, 280px); }
+
+  .has-split .world__close {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--white);
+    cursor: pointer;
+  }
+  .has-split .world__close svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+  .has-split .world__close:active { transform: scale(.92); }
+
+  /* ---- Tagline and hint over the closed split ---- */
+  .has-split .split-intro {
+    display: block;
+    position: absolute;
+    top: 37%;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    margin: 0;
+    color: var(--white);
+    font: 400 clamp(14px, 4.3vw, 18px)/1.6 var(--display);
+    letter-spacing: .3em;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 1px 14px rgba(20, 14, 10, .35);
+    pointer-events: none;
+    transition: opacity 220ms var(--ease);
+  }
+  .has-split .split-intro p { margin: 0 0 0 .3em; }
+  .has-split .split-hint {
+    display: block;
+    position: absolute;
+    bottom: calc(22px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    z-index: 4;
+    margin: 0;
+    color: var(--white);
+    font: 400 11px/1 var(--display);
+    letter-spacing: .3em;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 1px 10px rgba(20, 14, 10, .4);
+    pointer-events: none;
+    transition: opacity 220ms var(--ease);
+  }
+  .has-split [data-active="jewellery"] .split-intro,
+  .has-split [data-active="creations"] .split-intro,
+  .has-split [data-active="jewellery"] .split-hint,
+  .has-split [data-active="creations"] .split-hint { opacity: 0; }
+
+  /* The footer line is already shown over the split; keep it for screen readers only */
+  .has-split .site-footer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* Small phones (iPhone SE, 360px Android) */
+@media (max-width: 360px) {
+  .has-split .site-header { padding-inline: 16px; gap: 12px; }
+  .has-split .wordmark { font-size: 18px; gap: 10px; letter-spacing: .2em; }
+  .has-split .site-title { font-size: 10px; letter-spacing: .16em; }
+  .has-split .world__content { padding-inline: 20px; }
+  .has-split .world__link { font-size: 17px; gap: 10px; }
+  .has-split .soon { font-size: 11px; letter-spacing: .04em; }
+  .has-split .world__all { gap: 14px; padding: 0 16px 0 20px; font-size: 16px; white-space: nowrap; }
+}
+
+/* Touch screens: a tap must not leave the hover fill stuck on */
+@media (max-width: 767px) and (hover: none) {
+  .has-split a.world__link:hover:not(:focus-visible) { background-color: transparent; }
+  .has-split .world__all:hover:not(:focus-visible) { background-color: transparent; color: var(--white); }
+  .has-split a:hover:not(:focus-visible) .arrow { transform: none; }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .has-split .world__content { transform: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .world::before { transform: none; }
