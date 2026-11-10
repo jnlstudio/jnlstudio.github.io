@@ -33,8 +33,8 @@ Plain HTML, CSS and a small script: no build step, no dependencies.
 | Jewellery | Curated | https://jnlstudio.github.io/JNLCurated/ |
 | Jewellery | View All | https://jnlstudio.github.io/Jewellery/ |
 | Creations | Special Edition | https://jnlstudio.github.io/KeychainsGhostface/ |
-| Creations | Tile Time Clock | https://jnlstudio.github.io/Clock/ |
-| Creations | Custom Designs | Coming soon |
+| Creations | Sand Art Clock | https://jnlstudio.github.io/Clock/ |
+| Creations | Home & Lifestyle | Coming soon |
 | Creations | View All | https://jnlstudio.github.io/keychains/ |
 
 ## Local preview
