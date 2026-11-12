@@ -84,7 +84,7 @@
 
   var fine = window.matchMedia("(hover: hover) and (pointer: fine)");
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var MAX = 14;       // px, largest offset
+  var MAX = 18;       // px, largest offset
   var EASE = 0.06;    // share of the remaining distance covered each frame
 
   // Each world gets its own direction and weight, so the two pictures part slightly.
