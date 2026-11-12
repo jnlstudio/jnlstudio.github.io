@@ -410,7 +410,7 @@ a:focus-visible .arrow { transform: translateX(5px); }
     --bg:
       linear-gradient(90deg, rgba(64, 42, 24, .5) 0%, rgba(64, 42, 24, .28) 60%, rgba(64, 42, 24, .12) 100%),
       url("../images/jewellery-champagne-gold-ribbon.png");
-    --pos: center, 58% 40%;
+    --pos: center, 100% 42%; /* the ribbon's tall arc fills the narrow half and answers the pink S-curve */
   }
   .has-split .world--creations {
     --bg:
