@@ -107,11 +107,11 @@ a { color: inherit; text-decoration: none; }
      transform — the slow cinematic drift (CSS animation, below)
      translate — mouse parallax on fine-pointer desktops (--px / --py, set by worlds.js)
      scale     — the existing hover lean-in
-   It reaches 26px past every edge (clipped by .world), so drift + parallax never reveal an edge. */
+   It reaches 38px past every edge (clipped by .world), so drift + parallax never reveal an edge. */
 .world::before {
   content: "";
   position: absolute;
-  inset: -26px;
+  inset: -38px;
   z-index: -1;
   background-image: var(--bg);
   background-position: var(--pos);
@@ -120,21 +120,21 @@ a { color: inherit; text-decoration: none; }
   scale: 1.02;
   translate: var(--px, 0px) var(--py, 0px);
   transform: translate3d(0, 0, 0);
-  animation: 20s ease-in-out infinite alternate both;
+  animation: 18s ease-in-out infinite alternate both;
   will-change: transform;
   transition: scale 1400ms var(--ease);
 }
 
 /* Luxury drift: two worlds breathe slowly in opposite directions — calm, but visible. */
-.world--jewellery::before { animation-name: drift-jewellery; animation-duration: 20s; }
-.world--creations::before { animation-name: drift-creations; animation-duration: 24s; }
-@keyframes drift-jewellery { /* up and to the right, ~18px */
+.world--jewellery::before { animation-name: drift-jewellery; animation-duration: 18s; }
+.world--creations::before { animation-name: drift-creations; animation-duration: 21s; }
+@keyframes drift-jewellery { /* up and to the right, ~26px */
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(13px, -13px, 0); }
+  to   { transform: translate3d(18.5px, -18.5px, 0); }
 }
-@keyframes drift-creations { /* down and to the left, ~22px */
+@keyframes drift-creations { /* down and to the left, ~30px */
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-15.5px, 15.5px, 0); }
+  to   { transform: translate3d(-21px, 21px, 0); }
 }
 
 .world--jewellery {
