@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;background:transparent}
+svg{display:block}
+</style></head><body>
+<!-- FULL BADGE: cream square (full bleed; iOS/Android round it), scalloped gold frame, two sparkles, JNL -->
+<svg id="badge" width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cream" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#fbf6ef"/><stop offset="1" stop-color="#efe3d2"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9a15c"/><stop offset=".45" stop-color="#9a7333"/><stop offset=".7" stop-color="#d4b06a"/><stop offset="1" stop-color="#8a6326"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#cream)"/>
+  <!-- quatrefoil frame: four lobes meeting at the diagonals -->
+  <path d="M142 146 A 128 128 0 0 1 370 146 A 138 138 0 0 1 370 366 A 128 128 0 0 1 142 366 A 138 138 0 0 1 142 146 Z"
+        fill="none" stroke="url(#gold)" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M142 146 A 128 128 0 0 1 370 146 A 138 138 0 0 1 370 366 A 128 128 0 0 1 142 366 A 138 138 0 0 1 142 146 Z"
+        fill="none" stroke="url(#gold)" stroke-width="2" stroke-linejoin="round" transform="translate(256 256) scale(.93) translate(-256 -256)" opacity=".7"/>
+  <!-- sparkles -->
+  <path id="spark" d="M0 -17 C 2 -4 4 -2 17 0 C 4 2 2 4 0 17 C -2 4 -4 2 -17 0 C -4 -2 -2 -4 0 -17 Z" fill="url(#gold)" transform="translate(256 128)"/>
+  <use href="#spark" transform="translate(0 256)"/>
+  <text x="256" y="312" text-anchor="middle" font-family="Didot, 'Bodoni 72', serif" font-size="150" letter-spacing="-11" fill="url(#gold)">JNL</text>
+</svg>
+<!-- SIMPLIFIED: for 16–48px tabs. Rounded cream tile, thin gold rim, bolder JNL -->
+<svg id="small" width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a07a36"/><stop offset="1" stop-color="#6f4f1c"/></linearGradient></defs>
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#f6eee3" stroke="#a9843f" stroke-width="2.5"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Didot, 'Bodoni 72', serif" font-weight="700" font-size="31" letter-spacing="-2.2" fill="url(#gold2)">JNL</text>
+</svg>
+<!-- TINY: 16px only. Baskerville Bold keeps its strokes at this size; solid dark gold for contrast -->
+<svg id="tiny" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <rect x=".5" y=".5" width="15" height="15" rx="3.5" fill="#f6eee3" stroke="#a9843f" stroke-width="1"/>
+  <text x="8" y="10.9" text-anchor="middle" font-family="Baskerville, 'Libre Baskerville', serif" font-weight="700" font-size="7.2" letter-spacing="-.35" fill="#5e4218">JNL</text>
+</svg>
+</body></html>

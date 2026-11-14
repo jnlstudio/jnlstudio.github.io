@@ -25,6 +25,16 @@ Plain HTML, CSS and a small script: no build step, no dependencies.
 - 768–900px: the two worlds stacked.
 - 767px and below: the two worlds side by side at 50/50. Tap one to open it to about 92%; the other folds into a strip that switches to it. Close (×) or Escape returns to 50/50. Without script, phones get the stacked layout.
 
+## Icons
+
+The JNL monogram lives at the site root and is shared by every JNL Studio site on jnlstudio.github.io:
+
+- `docs/favicon.ico`: browser tab (16, 32, 48 px; 16 px uses a bolder Baskerville so it stays legible)
+- `docs/apple-touch-icon.png` (180), `docs/icon-192.png`, `docs/icon-512.png`: full badge for home screens
+- `docs/site.webmanifest`
+
+Sub-sites link to `/favicon.ico` and `/apple-touch-icon.png`. To change the design, edit `icon-source/jnl-icons.html` and re-render with `icon-source/render.mjs`.
+
 ## Links
 
 | World | Item | Destination |
