@@ -27,13 +27,21 @@ Plain HTML, CSS and a small script: no build step, no dependencies.
 
 ## Icons
 
-The JNL monogram lives at the site root and is shared by every JNL Studio site on jnlstudio.github.io:
+One JNL monogram (Didot Bold on a solid rounded tile, no border), each JNL Studio site in its own colours:
 
-- `docs/favicon.ico`: browser tab (16, 32, 48 px; 16 px uses a bolder Baskerville so it stays legible)
-- `docs/apple-touch-icon.png` (180), `docs/icon-192.png`, `docs/icon-512.png`: full badge for home screens
-- `docs/site.webmanifest`
+| Site | Tile | Letters |
+|---|---|---|
+| Two Worlds (this site) | `#805A20` deep gold | `#FAF5E9` cream |
+| Jewellery | `#49362b` espresso | `#f8f3ec` cream |
+| JNL Personalised | `#9c6656` rose gold | `#fbf1ea` pearl |
+| JNL Curated | `#0c0a09` black | `#d8bb7a` champagne |
+| Clock | `#223e36` forest | `#e8bb62` mustard |
+| KeychainsGhostface | `#f06495` pink | `#0e0d0c` black |
+| keychains | `#c82919` red | `#ffffff` white |
 
-Sub-sites link to `/favicon.ico` and `/apple-touch-icon.png`. To change the design, edit `icon-source/jnl-icons.html` and re-render with `icon-source/render.mjs`.
+This site: `docs/favicon.ico` (16/32/48, rounded tile), `docs/apple-touch-icon.png` (180), `docs/icon-192.png`, `docs/icon-512.png` (full-bleed), `docs/site.webmanifest`. Each sub-site keeps its own `favicon.ico` + `apple-touch-icon.png` in its repo root.
+
+To change colours or the design: edit `icon-source/jnl-tile-icons.html`, then `node icon-source/render-all.mjs "$PWD/icon-source/jnl-tile-icons.html" <out-folder>` (needs Chrome and the Mac's Didot font). The earlier scalloped badge is kept as `icon-source/jnl-badge-v1.html`.
 
 ## Links
 

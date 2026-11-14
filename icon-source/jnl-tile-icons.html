@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- JNL Studio tile icons: one JNL monogram (Didot Bold), each site in its own colours.
+     ?site=<id>&kind=tab|full  — tab: rounded tile on transparent (favicon); full: full-bleed square (home-screen icons). -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}svg{display:block}</style></head><body>
+<svg id="icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <rect id="tile" width="64" height="64" rx="13"/>
+  <text id="mark" x="32" y="44.5" text-anchor="middle" font-family="Didot" font-weight="700" font-size="33" letter-spacing="-2.4">JNL</text>
+</svg>
+<script>
+  // tile colour, letter colour — taken from each site's own theme
+  window.SITES = {
+    main:     ['#805A20', '#FAF5E9'], // JNL Studio | Two Worlds — deep gold bridges both worlds
+    jewellery:['#49362b', '#f8f3ec'], // Jewellery — espresso + cream (its previous icon)
+    personal: ['#9c6656', '#fbf1ea'], // JNL Personalised — rose gold + pearl
+    curated:  ['#0c0a09', '#d8bb7a'], // JNL Curated — black + champagne gold (site palette)
+    clock:    ['#223e36', '#e8bb62'], // Clock — forest + mustard (its previous icon)
+    ghost:    ['#f06495', '#0e0d0c'], // KeychainsGhostface — pink + black (its previous icon)
+    keychains:['#c82919', '#ffffff']  // keychains — red + white (its previous icon)
+  };
+  window.paint = function (site, kind, size) {
+    var c = SITES[site], svg = document.getElementById('icon');
+    svg.setAttribute('width', size); svg.setAttribute('height', size);
+    var tile = document.getElementById('tile'), mark = document.getElementById('mark');
+    tile.setAttribute('fill', c[0]); tile.setAttribute('rx', kind === 'full' ? 0 : 13);
+    mark.setAttribute('fill', c[1]); mark.setAttribute('stroke', c[1]);
+    // thicker hairlines the smaller it gets; full-bleed icons get a little more breathing room
+    mark.setAttribute('stroke-width', size <= 16 ? 1.25 : size <= 32 ? 0.8 : 0.5);
+    mark.setAttribute('font-size', kind === 'full' ? 28 : 33);
+    mark.setAttribute('y', kind === 'full' ? 42 : 44.5);
+    mark.setAttribute('letter-spacing', kind === 'full' ? -2 : -2.4);
+  };
+</script>
+</body></html>
